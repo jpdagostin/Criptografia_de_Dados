@@ -1,0 +1,7 @@
+cd "C:\Users\dagos\OneDrive\Desktop"
+
+openssl genpkey -algorithm RSA:2048 -out jpd_private_key.key
+
+openssl rsa -in jpd_private_key.key -pubout -out jpd_public_key.key
+
+openssl req -new -key jpd_private_key.key -out certificado_jpd.csr

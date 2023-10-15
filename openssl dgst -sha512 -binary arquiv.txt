@@ -1,0 +1,36 @@
+openssl dgst -sha512 -binary arquivoName_RA_Frase.txt > arquivoHash.bin
+
+openssl pkeyutl -sign -in arquivoHash.bin -inkey jpd_private_key.key -out hashAssinadoJP.bin
+
+openssl x509 -in mozartCertificado.crt -pubkey -noout > chave_publica_Mozart.pem
+
+openssl pkeyutl -encrypt -pubin -inkey chave_publica_Mozart.pem -in arquivoName_RA_Frase.txt -out arquivoCryptJP.bin
+
+
+Teste com a sua chave pública 
+openssl pkeyutl -decrypt -inkey PRIVATE_KEY.key -in ARQUIVO_CRYPT.bin -out ARQUIVO_DECRYPT.txt
+
+openssl pkeyutl -verify -pubin -inkey PUBLIC_KEY.pem -in ARQUIVO_HASH.bin -sigfile ARQUIVO_ASSINADO.bin
+
+
+
+
+
+s comandos fornecidos são uma série de comandos do OpenSSL para operações criptográficas. Aqui está uma explicação de cada comando:
+
+openssl dgst -sha512 -binary ARQUIVO_TEXTO.TXT > ARQUIVO_HASH.bin
+
+Este comando calcula o hash SHA-512 do arquivo ARQUIVO_TEXTO.TXT e salva a saída binária em ARQUIVO_HASH.bin.
+openssl pkeyutl -sign -in ARQUIVO_HASH.bin -inkey PRIVATE_KEY.key -out ARQUIVO_ASSINADO.bin
+
+Este comando assina o hash contido em ARQUIVO_HASH.bin usando uma chave privada de PRIVATE_KEY.key e salva a assinatura resultante em ARQUIVO_ASSINADO.bin.
+openssl pkeyutl -encrypt -pubin -inkey PUBLIC_KEY.pem -in ARQUIVO_TEXTO.txt -out ARQUIVO_CRYPT.bin
+
+Este comando criptografa o arquivo ARQUIVO_TEXTO.txt usando uma chave pública de PUBLIC_KEY.pem e salva os dados criptografados em ARQUIVO_CRYPT.bin.
+openssl pkeyutl -decrypt -inkey PRIVATE_KEY.key -in ARQUIVO_CRYPT.bin -out ARQUIVO_DECRYPT.txt
+
+Este comando descriptografa o arquivo ARQUIVO_CRYPT.bin usando uma chave privada de PRIVATE_KEY.key e salva os dados descriptografados em ARQUIVO_DECRYPT.txt.
+openssl pkeyutl -verify -pubin -inkey PUBLIC_KEY.pem -in ARQUIVO_HASH.bin -sigfile ARQUIVO_ASSINADO.bin
+
+Este comando verifica a assinatura em ARQUIVO_ASSINADO.bin em relação ao hash original em ARQUIVO_HASH.bin usando uma chave pública de PUBLIC_KEY.pem.
+Esses comandos são comumente usados em cenários de criptografia assimétrica para tarefas como hash, assinatura, criptografia e verificação.
